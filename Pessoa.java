@@ -22,4 +22,14 @@ public class Pessoa {
     System.out.println("\nInforme a sua idade: ");
     pessoa.idade = scanner.nextInt();
   }
+
+public void coletaIdade(Object sc) {
+	// TODO Auto-generated method stub
+	
+}
+
+public void coletaNome(Object sc) {
+	// TODO Auto-generated method stub
+	
+}
 }
