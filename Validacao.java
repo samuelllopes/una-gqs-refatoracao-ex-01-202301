@@ -1,43 +1,57 @@
 import java.util.Scanner;
 
 public class Validacao {
+  private Scanner scanner;
+
+  public Validacao() {
+    setScanner(new Scanner(System.in));
+  }
+
   public void calcularValidacaoFinal(Pessoa pessoa, Mensagem mensagem, boolean erroTentativas) {
-    // Valido se imprimo a mensagem de erro
-    if (erroTentativas == true) {
+    if (erroTentativas) {
       mensagem.imprimirMensagemErro();
     } else {
       CalculoPorcentagem calculoPorcentagem = new CalculoPorcentagem();
       calculoPorcentagem.calculaPorcentagem(pessoa);
 
-      // Verifico se a pessoa está retornando de viagem
-      if (pessoa.estaRetornandoViagem.equals("SIM")) {
+      if (pessoa.estaRetornandoViagem == Mensagem.SIM) {
         mensagem.imprimirRelatorioFinal(pessoa);
       } else {
-
-        // Verifico a porcentagem de infecção
         if (pessoa.porcentagemInfeccao >= 90) {
           pessoa.orientacaoFinal = "Paciente crítico! Gentileza aguardar em lockdown por 10 dias para ser acompanhado.";
-          mensagem.imprimirRelatorioFinal(pessoa);
         } else {
           pessoa.orientacaoFinal = "Paciente com risco de estar infectado. Gentileza aguardar em lockdown por 02 dias para ser acompanhado.";
-          mensagem.imprimirRelatorioFinal(pessoa);
         }
+        mensagem.imprimirRelatorioFinal(pessoa);
       }
     }
   }
 
-  public void validacaoDasProximasPerguntas(Mensagem mensagem, Pessoa pessoa, boolean erroTentativas, Scanner scanner) {
-    // Valido se continuo perguntando ou se vou direto para a mensagem final
-    if (erroTentativas == false)
-      erroTentativas = mensagem.realizaPerguntaTeveSintomasRecenmente(pessoa, scanner);
-
-    if (erroTentativas == false) {
-      erroTentativas = mensagem.realizaPerguntaTeveContatoPessoasAssintomaticas(pessoa, scanner);
+  public void realizarValidacaoDasProximasPerguntas(Mensagem mensagem, Pessoa pessoa, boolean erroTentativas) {
+    if (!erroTentativas) {
+      erroTentativas = mensagem.realizaPerguntaTeveSintomasRecentemente(pessoa);
     }
 
-    if (erroTentativas == false) {
-      // erroTentativas = mensagem.realizaPerguntaEstaRetornandoViagemExterior(pessoa,
-      // scanner);
+    if (!erroTentativas) {
+      erroTentativas = mensagem.realizaPerguntaTeveContatoPessoasSintomaticas(pessoa);
+    }
+
+    if (!erroTentativas) {
+      // erroTentativas = mensagem.realizaPerguntaEstaRetornandoViagemExterior(pessoa);
     }
   }
+
+public Scanner getScanner() {
+	return scanner;
 }
+
+public void setScanner(Scanner scanner) {
+	this.scanner = scanner;
+}
+
+public void validacaoDasProximasPerguntas(Mensagem pessoas, Pessoa pesssoa, boolean erroTentativas, Scanner scanner2) {
+	// TODO Auto-generated method stub
+	
+}
+}
+

@@ -1,21 +1,22 @@
 import java.util.Scanner;
 
 public class Mensagem {
-  private static final String SIM = "SIM";
+  static final String SIM = "SIM";
   private static final String NAO = "NAO";
   private static final String MENSAGEM_ERRO = "\nEntrada inválida! Digite SIM ou NAO.";
 
   public boolean realizaPergunta(Pessoa pessoa, String mensagem) {
-    Scanner scanner = new Scanner(System.in);
-    for (int contador = 0; contador < 3; contador++) {
-      System.out.println(mensagem);
-      String resposta = scanner.next().toUpperCase();
-      if (resposta.equals(SIM) || resposta.equals(NAO)) {
-        return false;
-      } else {
-        System.out.println(MENSAGEM_ERRO);
-      }
-    }
+    try (Scanner leia = new Scanner(System.in)) {
+		for (int contador = 0; contador < 3; contador++) {
+		  System.out.println(mensagem);
+		  String resposta = leia.next().toUpperCase();
+		  if (resposta.equals(SIM) || resposta.equals(NAO)) {
+		    return false;
+		  } else {
+		    System.out.println(MENSAGEM_ERRO);
+		  }
+		}
+	}
     return true;
   }
 
