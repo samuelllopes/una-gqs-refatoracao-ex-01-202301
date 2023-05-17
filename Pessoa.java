@@ -10,7 +10,6 @@ public class Pessoa {
   public int porcentagemInfeccao;
   public String orientacaoFinal;
   public String nome;
-
   /*
    * public void coletaNome(Pessoa pessoa, Scanner scanner) {
    * System.out.println("\nInforme o seu nome: ");
