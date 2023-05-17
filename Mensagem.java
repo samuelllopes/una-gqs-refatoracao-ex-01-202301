@@ -1,101 +1,43 @@
 import java.util.Scanner;
 
 public class Mensagem {
+  private static final String SIM = "SIM";
+  private static final String NAO = "NAO";
+  private static final String MENSAGEM_ERRO = "\nEntrada inválida! Digite SIM ou NAO.";
 
-  public boolean realizaPerguntaVacinaEmDia(Pessoa pessoa, Scanner scanner) {
-    int contador = 0;
-    boolean erroTentativas = false;
-
-    do {
-      System.out.println("\nSeu cartão de vacina está em dia? Digite SIM ou NAO ?");
-      pessoa.cartaoVacinaEmDia = scanner.next().toUpperCase();
-      if (pessoa.cartaoVacinaEmDia.equals("SIM") || pessoa.cartaoVacinaEmDia.equals("NAO")) {
-        break;
+  public boolean realizaPergunta(Pessoa pessoa, String mensagem) {
+    Scanner scanner = new Scanner(System.in);
+    for (int contador = 0; contador < 3; contador++) {
+      System.out.println(mensagem);
+      String resposta = scanner.next().toUpperCase();
+      if (resposta.equals(SIM) || resposta.equals(NAO)) {
+        return false;
       } else {
-        contador++;
-        System.out.println("\nDigito inválido! Digite SIM ou NAO.");
-        if (contador == 3) {
-          erroTentativas = true;
-          break;
-        }
+        System.out.println(MENSAGEM_ERRO);
       }
-    } while (true);
-
-    return erroTentativas;
+    }
+    return true;
   }
 
-  public boolean realizaPerguntaTeveSintomasRecenmente(Pessoa pessoa, Scanner scanner) {
-    int contador = 0;
-    boolean erroTentativas = false;
-
-    do {
-      System.out
-          .println("\nTeve algum dos sintomas recentemente? (dor de cabeça, febre, náusea, dor articular, gripe)" +
-              "Digite SIM ou NAO");
-      pessoa.teveSintomasRecentemente = scanner.next().toUpperCase();
-      if (pessoa.teveSintomasRecentemente.equals("SIM") || pessoa.teveSintomasRecentemente.equals("NAO")) {
-        break;
-      } else {
-        contador++;
-        System.out.println("\nDigito inválido! Digite SIM ou NAO.");
-        if (contador == 3) {
-          erroTentativas = true;
-          break;
-        }
-      }
-    } while (true);
-
-    return erroTentativas;
+  public boolean realizaPerguntaVacinaEmDia(Pessoa pessoa) {
+    return realizaPergunta(pessoa, "\nSeu cartão de vacina está em dia? Digite SIM ou NAO ?");
   }
 
-  public boolean realizaPerguntaTeveContatoPessoasAssintomaticas(Pessoa pessoa, Scanner scanner) {
-    int contador = 0;
-    boolean erroTentativas = false;
-
-    do {
-      System.out
-          .println("\nTeve contato com pessoas com sintomas gripais nos últimos dias?" +
-              "Digite SIM ou NAO");
-      pessoa.teveContatoComPessoasSintomaticas = scanner.next().toUpperCase();
-      if (pessoa.teveContatoComPessoasSintomaticas.equals("SIM")
-          || pessoa.teveContatoComPessoasSintomaticas.equals("NAO")) {
-        break;
-      } else {
-        contador++;
-        System.out.println("\nDigito inválido! Digite SIM ou NAO.");
-        if (contador == 3) {
-          erroTentativas = true;
-          break;
-        }
-      }
-    } while (true);
-
-    return erroTentativas;
+  public boolean realizaPerguntaTeveSintomasRecentemente(Pessoa pessoa) {
+    String mensagem = "\nTeve algum dos sintomas recentemente? (dor de cabeça, febre, náusea, dor articular, gripe)" +
+        "Digite SIM ou NAO.";
+    return realizaPergunta(pessoa, mensagem);
   }
 
-  public boolean realizaPerguntaEstaRetornandoViagemExterior(Pessoa pessoa, Scanner scanner) {
-    int contador = 0;
-    boolean erroTentativas = false;
+  public boolean realizaPerguntaTeveContatoPessoasSintomaticas(Pessoa pessoa) {
+    String mensagem = "\nTeve contato com pessoas com sintomas gripais nos últimos dias?" +
+        "Digite SIM ou NAO.";
+    return realizaPergunta(pessoa, mensagem);
+  }
 
-    do {
-      System.out
-          .println("\nTeve contato com pessoas com sintomas gripais nos últimos dias?" +
-              "Digite SIM ou NAO");
-      pessoa.estaRetornandoViagem = scanner.next().toUpperCase();
-      if (pessoa.estaRetornandoViagem.equals("SIM")
-          || pessoa.estaRetornandoViagem.equals("NAO")) {
-        break;
-      } else {
-        contador++;
-        System.out.println("\nDigito inválido! Digite SIM ou NAO.");
-        if (contador == 3) {
-          erroTentativas = true;
-          break;
-        }
-      }
-    } while (true);
-
-    return erroTentativas;
+  public boolean realizaPerguntaEstaRetornandoViagemExterior(Pessoa pessoa) {
+    String mensagem = "\nEstá retornando de viagem ao exterior? Digite SIM ou NAO.";
+    return realizaPergunta(pessoa, mensagem);
   }
 
   public void imprimirRelatorioFinal(Pessoa pessoa) {
@@ -104,13 +46,20 @@ public class Mensagem {
     System.out.println("Cartão Vacinal em Dia: " + pessoa.cartaoVacinaEmDia);
     System.out.println("Teve sintomas recentemente: " + pessoa.teveSintomasRecentemente);
     System.out.println("Teve contato com pessoas infectadas: " + pessoa.teveContatoComPessoasSintomaticas);
-    System.out.println("Esta retornando de viagem: " + pessoa.estaRetornandoViagem);
+    System.out.println("Está retornando de viagem: " + pessoa.estaRetornandoViagem);
     System.out.println("Porcentagem infecção: " + pessoa.porcentagemInfeccao);
     System.out.println("Orientação Final: " + pessoa.orientacaoFinal);
   }
 
   public void imprimirMensagemErro() {
-    System.out.println("Não foi possível realizar o ZZZZZZZZZZ." +
-        "Gentileza ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ.");
+    System.out.println("Não foi possível realizar a operação. Por favor, tente novamente.");
   }
+
+public boolean realizaPerguntaTeveSintomasRecenmente(Pessoa pessoa, Scanner scanner) {
+	return false;
+}
+
+public boolean realizaPerguntaTeveContatoPessoasAssintomaticas(Pessoa pessoa, Scanner scanner) {
+	return false;
+}
 }

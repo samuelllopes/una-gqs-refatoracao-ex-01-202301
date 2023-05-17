@@ -15,7 +15,7 @@ class Programa {
     pessoa.coletaIdade(sc);
 
     Pessoa pesssoa = null;
-	erroTentativas = mensagem.realizaPerguntaVacinaEmDia(pesssoa, scanner);
+	erroTentativas = mensagem.realizaPerguntaVacinaEmDia(pesssoa);
 
     Mensagem pessoas = null;
 	validacao.validacaoDasProximasPerguntas(pessoas, pesssoa, erroTentativas, scanner);
